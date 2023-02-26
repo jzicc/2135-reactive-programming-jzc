@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { from, map, of } from 'rxjs';
+import { from, map, of, filter, range } from 'rxjs';
 
 
 const numbers$ = of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
 numbers$
 .pipe(
 map(value => value = 2)
@@ -23,6 +24,25 @@ const users = [
 const users$ = from(users);
 users$.subscribe(user => console.log(user));
 
+users$
+.pipe(
+ filter(user => user.age > 30)
+)
+
+.subscribe(user => console.log(user));
+
+users$
+.pipe(
+ map(user => ({
+  id: user.id,
+  name: user.name.toUpperCase(),
+  age: user.age * 2
+
+ }))
+
+)
+
+.subscribe(user => console.log(user));
 
 
 
